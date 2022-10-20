@@ -5,7 +5,7 @@ import sys
 
 
 
-#mapa = []
+
 #w = 0
 #h = 0
 
@@ -57,9 +57,20 @@ w, h = map(int, (linhas[0]).split())
 print( 'w: ', w )
 print( 'h: ', h )
 
-# Le as outras linhas do mapa
-for linha in linhas:
-    print(linha)
 
+mapa = []
+# Le as outras linhas do mapa
+for i in range(1, h+1):
+    tmp = linhas[i]
+    linha = []
+    for j in range(w):
+        linha.append( tmp[j] )
+    mapa.append( linha )
+    
+print( mapa )
+
+print( 'Mapa[0][0]: ', mapa[0][0] )
+print( 'Mapa[0][1]: ', mapa[0][1] )
+print( 'Mapa[1][0]: ', mapa[1][0] )
 
 print( '\n\n' )
