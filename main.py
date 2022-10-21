@@ -168,6 +168,32 @@ else:
 
 
 
+
+numLinhas = mapa.get_num_linhas()
+numColunas = mapa.get_num_colunas()
+print( '\n\nNumero de linhas da matriz: ', numLinhas )
+print( 'Numero de colunas da matriz: ', numColunas )
+
+teste = []
+for i in range(numLinhas):
+    colunas = numColunas * [0]
+    teste.append( colunas )
+
+print( '\nteste.linha: ', teste[0] )
+print( 'teste: ', teste )
+print( '\n\n' )
+
+posicao_inicial = (1,3)
+posicao_final = (1,4)
+
+if( posicao_inicial == posicao_final ):
+    print( 'IGUAL' )
+else:
+    print( 'DIFERENTE' )
+
+
+
+
 # Fim do programa
 
 

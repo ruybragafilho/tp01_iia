@@ -25,6 +25,13 @@ class Mapa:
 
 
 
+    def get_num_linhas( self ): 
+        return self.h_max + 1
+
+    def get_num_colunas( self ): 
+        return self.w_max + 1        
+
+
     # Metodo que determina de a posicao eh valida,
     # ou seja, se esta dentro dos limites do mapa 
     # e se a posicao nao eh uma parede. Se a posicao 
