@@ -76,42 +76,95 @@ print( matriz )
 mapa = Mapa(matriz, w, h)
 mapa.mostrar_mapa()
 
-
-retorno = mapa.sobe(0, 0)
-print( 'Retorno sobe (0,0): ', retorno)
-
-retorno = mapa.sobe(0, 1)
-print( 'Retorno sobe (0,1): ', retorno)
-
-retorno = mapa.sobe(1, 1)
-print( 'Retorno sobe (1,1): ', retorno)
+print( '\n\n' )
 
 
-retorno = mapa.desce(4, 2)
-print( '\nRetorno desce (4,2): ', retorno)
-
-retorno = mapa.desce(3, 1)
-print( 'Retorno desce (3,1): ', retorno)
-
-
-retorno = mapa.esquerda(0, 0)
-print( '\nRetorno esquerda (0,0): ', retorno)
-
-retorno = mapa.esquerda(1, 1)
-print( 'Retorno esquerda (1,1): ', retorno)
-
-retorno = mapa.esquerda(2, 2)
-print( 'Retorno esquerda (2,2): ', retorno)
+(x, y) = mapa.sobe(0, 0)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
 
 
-retorno = mapa.direita(4, 2)
-print( '\nRetorno direita (4,2): ', retorno)
+(x, y) = mapa.sobe(0, 1)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
 
-retorno = mapa.direita(3, 2)
-print( 'Retorno direita (3,2): ', retorno)
 
-retorno = mapa.direita(1, 2)
-print( 'Retorno direita (1,2): ', retorno)
+(x, y) = mapa.sobe(1, 1)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.desce(4, 2)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.desce(3, 1)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.esquerda(0, 0)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.esquerda(1, 1)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.esquerda(2, 2)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.direita(4, 2)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.esquerda(3, 2)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
+
+
+(x, y) = mapa.esquerda(1, 2)
+print( 'x e y', x, y )
+if( mapa.posicao_eh_valida(x, y) ):
+    print( mapa.custo(x, y) )
+else:
+    print( 'Posicao invalida' )
 
 
 

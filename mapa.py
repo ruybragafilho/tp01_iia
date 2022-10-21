@@ -11,6 +11,7 @@ class Mapa:
     parede = '@' 
   
   
+
     # inicializador da classe
     def __init__(self, matriz, w, h):
   
@@ -22,74 +23,57 @@ class Mapa:
         self.h_min = 0 # Limite superior do mapa          
         self.h_max = h-1 # Limite inferior do mapa   
 
-        print( self.w_max )
-        print( self.h_max )
-  
-      
-  
-  
-  
-    # Metodo que tenta subir uma posicao no mapa.
-    # Se a posicao acima for invalida, retorna booleano False.
-    # Se a posicao acima for valida, retorna uma lista contendo uma tupla com 
-    # as coordenadas (x,y) da posicao acima e um float com o custo para percorrer 
-    # o terreno da posicao acima: [ (x,y), custo ].
-    def sobe(self, x_atual, y_atual):
-  
-        y_acima = y_atual-1 
-    
-        if( y_acima < self.h_min  or  self.matriz[y_acima][x_atual] == Mapa.parede ):
-            return False    
+
+
+    # Metodo que determina de a posicao eh valida,
+    # ou seja, se esta dentro dos limites do mapa 
+    # e se a posicao nao eh uma parede. Se a posicao 
+    # for valida, retorna True. Caso contrario, 
+    # retorna False
+    def posicao_eh_valida( self, x, y ):
+
+        if( y >= self.h_min  and y <= self.h_max and
+            x >= self.w_min  and x <= self.w_max and
+            self.matriz[y][x] != Mapa.parede ):
+
+            return True
         else:
-            return [ (x_atual, y_acima), Mapa.custo_terreno[ self.matriz[y_acima][x_atual] ]]
+            return False
+  
+
+  
+    # Metodo que retorna o custo de passar pelo terreno
+    # cuja posicao eh passada como parametro
+    def custo( self, x, y ):
+        return Mapa.custo_terreno[ self.matriz[y][x] ] 
+  
+
+
+    # Metodo que sobe uma posicao no mapa. Retorna uma tupla
+    # representando com a nova posicao.
+    def sobe(self, x, y):        
+        return (x, y-1)
   
   
   
-    # Metodo que tenta descer uma posicao no mapa
-    # Se a posicao abaixo for invalida, retorna booleano False.
-    # Se a posicao abaixo for valida, retorna uma lista contendo uma tupla com 
-    # as coordenadas (x,y) da posicao abaixo e um float com o custo para percorrer 
-    # o terreno da posicao abaixo: [ (x,y), custo ].
-    def desce(self, x_atual, y_atual):
-  
-        y_abaixo = y_atual+1 
-    
-        if( y_abaixo > self.h_max  or  self.matriz[y_abaixo][x_atual] == Mapa.parede ):
-            return False    
-        else:
-            return [ (x_atual, y_abaixo), Mapa.custo_terreno[ self.matriz[y_abaixo][x_atual] ]]
+    # Metodo que desce uma posicao no mapa. Retorna uma tupla
+    # representando com a nova posicao.
+    def desce(self, x, y):
+        return (x, y+1)    
+
   
   
-  
-    # Metodo que tenta mover uma posicao aa esquerda no mapa
-    # Se a posicao aa esquerda for invalida, retorna booleano False.
-    # Se a posicao aa esquerda for valida, retorna uma lista contendo uma tupla com 
-    # as coordenadas (x,y) da posicao aa esquerda e um float com o custo para percorrer 
-    # o terreno da posicao aa esquerda: [ (x,y), custo ].
-    def esquerda(self, x_atual, y_atual):
-  
-        x_esquerda = x_atual-1 
-        
-        if( x_esquerda < self.w_min  or  self.matriz[y_atual][x_esquerda] == Mapa.parede ):
-            return False    
-        else:
-            return [ (x_esquerda, y_atual), Mapa.custo_terreno[ self.matriz[y_atual][x_esquerda] ]]
+    # Metodo que move uma posicao aa esquerda no mapa. Retorna uma tupla
+    # representando com a nova posicao.
+    def esquerda(self, x, y):
+        return (x-1, y)    
+
   
   
-  
-    # Metodo que tenta mover uma posicao aa direita no mapa
-    # Se a posicao aa direita for invalida, retorna booleano False.
-    # Se a posicao aa direita for valida, retorna uma lista contendo uma tupla com 
-    # as coordenadas (x,y) da posicao aa direita e um float com o custo para percorrer 
-    # o terreno da posicao aa direita: [ (x,y), custo ].
-    def direita(self, x_atual, y_atual):
-  
-        x_direita = x_atual+1 
-        
-        if( x_direita > self.w_max  or  self.matriz[y_atual][x_direita] == Mapa.parede ):
-            return False    
-        else:
-            return [ (x_direita, y_atual), Mapa.custo_terreno[ self.matriz[y_atual][x_direita] ]]
+    # Metodo que move uma posicao aa direita no mapa. Retorna uma tupla
+    # representando com a nova posicao.
+    def direita(self, x, y):
+        return (x+1, y)
   
   
   
