@@ -48,7 +48,7 @@ class Pathfinder:
     # Metodo que retorna True se aposicao nunca entrou na open_list 
     # e nunca foi explorada
     def posicao_nao_foi_visitada( self, x, y ):
-        return self.matriz_auxiliar[y][x] == Pathfinder.status_posicao['posicao_virgem']                    
+        return self.matriz_status_visita[y][x] == Pathfinder.status_posicao['posicao_virgem']                    
 
 
     # Metodo que insere a posicao (x,y) na open list e registra
@@ -69,7 +69,19 @@ class Pathfinder:
         return self.path_cost
 
 
-    def get_path( self ):
+    def get_path( self, posicao_inicial, posicao_final ):
+
+        (x, y) = posicao_final
+        self.path.appendleft( (x,y) )
+        self.path_cost += self.mapa.custo(x, y)
+
+        while( True ):
+            (y, x) = self.matriz_de_antecessores[y][x]
+            self.path.appendleft( (x,y) )
+            if( (x,y) == posicao_inicial ):
+                break
+            self.path_cost += self.mapa.custo(x, y)        
+
         return self.path
 
 
@@ -77,6 +89,13 @@ class Pathfinder:
     # Metodo que implementa o algoritmo de busca BFS
     def bfs( self, posicao_inicial, posicao_final ):
         
+        # Testa se as posicoes sao validas
+        (xi, yi) = posicao_inicial
+        (xf, yf) = posicao_final
+        if( not(self.mapa.posicao_eh_valida(xi, yi)) or 
+            not(self.mapa.posicao_eh_valida(xf, yf)) ):
+            return False
+
         # Testa se a posicao inicial eh o goal
         if( posicao_inicial == posicao_final ):
             return True
@@ -102,33 +121,34 @@ class Pathfinder:
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xs, ys) = self.mapa.sobe(x,y)            
-            if( (xs, ys) == posicao_final ):
-                return True
             self.inserir_posicao_na_open_list( xs, ys, x, y )
+            if( (xs, ys) == posicao_final ):
+                return True            
 
             # verifica se a posicao de baixo eh o goal. 
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xi, yi) = self.mapa.desce(x,y)
-            if( (xi, yi) == posicao_final ):
-                return True            
             self.inserir_posicao_na_open_list( xi, yi, x, y )            
+            if( (xi, yi) == posicao_final ):
+                return True                       
 
             # verifica se a posicao aa esquerda eh o goal. 
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xe, ye) = self.mapa.esquerda(x,y)
+            self.inserir_posicao_na_open_list( xe, ye, x, y )  
             if( (xe, ye) == posicao_final ):
                 return True                        
-            self.inserir_posicao_na_open_list( xe, ye, x, y )            
-
+            
             # verifica se a posicao aa direita eh o goal. 
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xd, yd) = self.mapa.direita(x,y)
+            self.inserir_posicao_na_open_list( xd, yd, x, y )  
             if( (xd, yd) == posicao_final ):
                 return True                                    
-            self.inserir_posicao_na_open_list( xd, yd, x, y )  
+            
 
 
             
@@ -143,7 +163,7 @@ class Pathfinder:
         #fronteira.append()
         #fronteira.popleft()
 
-        pass
+        
 
     
     def ids( self, mapa, posicao_inicial, posicao_final ):

@@ -5,7 +5,7 @@
 #./main.py [caminho para arquivo mapa] [identificador metodo] xi yi xf yf
 
 # Exemplo
-# ./main.py mapa_teste.map BFS 1 1 4 3
+# ./main.py mapa_teste.map BFS 1 1 3 1
 
 # Identificadores dos metodos de busca
 # BFS - Busca em Largura
@@ -17,6 +17,7 @@
 
 import sys
 from mapa import Mapa
+from pathfinder import Pathfinder
 
 
 
@@ -25,10 +26,10 @@ from mapa import Mapa
 arquivo_entrada = sys.argv[1]
 identificador_metodo = sys.argv[2]
 
-xi = sys.argv[3]
-yi = sys.argv[4]
-xf = sys.argv[5]
-yf = sys.argv[6]
+xi = int(sys.argv[3])
+yi = int(sys.argv[4])
+xf = int(sys.argv[5])
+yf = int(sys.argv[6])
 
 
 # Caregando o mapa do arquivo
@@ -50,17 +51,37 @@ for i in range(1, h+1):
 
 # instanciando um objeto da classe mapa
 mapa = Mapa(matriz, w, h)
-mapa.mostrar_mapa()
 
 # fechando o arquivo e desalocando o buffer linhas
 arquivo.close()
 linhas = None
 
+busca = Pathfinder(mapa)
+posicao_inicial = (xi, yi)
+posicao_final = (xf, yf)
+
+if( identificador_metodo == 'BFS' ):
+    resultado = busca.bfs( posicao_inicial, posicao_final )
+elif( identificador_metodo == 'IDS' ):
+    print( '\nIDS\n' )
+elif( identificador_metodo == 'UCS' ):
+    print( '\nUCS\n' )
+elif( identificador_metodo == 'Greedy' ):
+    print( '\nGreedy\n' )
+elif( identificador_metodo == 'Astar' ):
+    print( '\nAstar\n' )
+else:
+    print( '\nMetodo Invalido\n' )
+    exit()
 
 
+
+if( resultado ):
+    busca.get_path( posicao_inicial, posicao_final )
+    print( busca.path_cost, ' ', end='' )
+    for i in busca.path:
+        print( i, ' ', end='' )
+else:
+    print('Caminho nao encontrado')
 
 # Fim do programa
-
-
-
-print( '\n\n' )
