@@ -31,35 +31,15 @@ xf = sys.argv[5]
 yf = sys.argv[6]
 
 
-
-# Imprimir parametros
-print( '\n\n' )
-
-print( 'arquivo_entrada: ', arquivo_entrada )
-print( 'identificador_metodo: ', identificador_metodo )
-
-print( '\nxi: ', xi )
-print( 'yi: ', yi )
-print( 'xf: ', xf )
-print( 'yf: ', yf )
-
-
-print( '\n\n' )
-
-
-
 # Caregando o mapa do arquivo
 arquivo = open( arquivo_entrada, 'r' )
 
 # Le a largura e a altura do mapa
 linhas = arquivo.readlines()
 w, h = map(int, (linhas[0]).split())
-print( 'w: ', w )
-print( 'h: ', h )
 
-
+# Le o mapa
 matriz = []
-# Le as outras linhas do mapa
 for i in range(1, h+1):
     tmp = linhas[i]
     linha = []
@@ -67,129 +47,14 @@ for i in range(1, h+1):
         linha.append( tmp[j] )
     matriz.append( linha )
     
-print( matriz )
-
-
-
 
 # instanciando um objeto da classe mapa
 mapa = Mapa(matriz, w, h)
 mapa.mostrar_mapa()
 
-print( '\n\n' )
-
-
-(x, y) = mapa.sobe(0, 0)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.sobe(0, 1)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.sobe(1, 1)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.desce(4, 2)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.desce(3, 1)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.esquerda(0, 0)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.esquerda(1, 1)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.esquerda(2, 2)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.direita(4, 2)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.esquerda(3, 2)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-(x, y) = mapa.esquerda(1, 2)
-print( 'x e y', x, y )
-if( mapa.posicao_eh_valida(x, y) ):
-    print( mapa.custo(x, y) )
-else:
-    print( 'Posicao invalida' )
-
-
-
-
-numLinhas = mapa.get_num_linhas()
-numColunas = mapa.get_num_colunas()
-print( '\n\nNumero de linhas da matriz: ', numLinhas )
-print( 'Numero de colunas da matriz: ', numColunas )
-
-teste = []
-for i in range(numLinhas):
-    colunas = numColunas * [0]
-    teste.append( colunas )
-
-print( '\nteste.linha: ', teste[0] )
-print( 'teste: ', teste )
-print( '\n\n' )
-
-posicao_inicial = (1,3)
-posicao_final = (1,4)
-
-if( posicao_inicial == posicao_final ):
-    print( 'IGUAL' )
-else:
-    print( 'DIFERENTE' )
+# fechando o arquivo e desalocando o buffer linhas
+arquivo.close()
+linhas = None
 
 
 

@@ -2,34 +2,34 @@
 class Mapa:
   
     # Tabela com o custo para percorrer cada tipo de terreno
-    custo_terreno = { '.': 1.0, 
-                      ';': 1.5,
-                      '+': 2.5,
-                      'x': 6.0,
-                      'X': 6.0 } 
+    __custo_terreno = { '.': 1.0, 
+                        ';': 1.5,
+                        '+': 2.5,
+                        'x': 6.0,
+                        'X': 6.0 } 
   
-    parede = '@' 
+    __parede = '@' 
   
   
 
     # inicializador da classe
     def __init__(self, matriz, w, h):
   
-        self.matriz = matriz
+        self.__matriz = matriz
     
-        self.w_min = 0 # Limite aa esquerda do mapa
-        self.w_max = w-1 # Limite aa direita do mapa
+        self.__w_min = 0 # Limite aa esquerda do mapa
+        self.__w_max = w-1 # Limite aa direita do mapa
     
-        self.h_min = 0 # Limite superior do mapa          
-        self.h_max = h-1 # Limite inferior do mapa   
+        self.__h_min = 0 # Limite superior do mapa          
+        self.__h_max = h-1 # Limite inferior do mapa   
 
 
 
     def get_num_linhas( self ): 
-        return self.h_max + 1
+        return self.__h_max + 1
 
     def get_num_colunas( self ): 
-        return self.w_max + 1        
+        return self.__w_max + 1        
 
 
     # Metodo que determina de a posicao eh valida,
@@ -39,9 +39,9 @@ class Mapa:
     # retorna False
     def posicao_eh_valida( self, x, y ):
 
-        if( y >= self.h_min  and y <= self.h_max and
-            x >= self.w_min  and x <= self.w_max and
-            self.matriz[y][x] != Mapa.parede ):
+        if( y >= self.__h_min  and y <= self.__h_max and
+            x >= self.__w_min  and x <= self.__w_max and
+            self.__matriz[y][x] != Mapa.__parede ):
 
             return True
         else:
@@ -52,7 +52,7 @@ class Mapa:
     # Metodo que retorna o custo de passar pelo terreno
     # cuja posicao eh passada como parametro
     def custo( self, x, y ):
-        return Mapa.custo_terreno[ self.matriz[y][x] ] 
+        return Mapa.__custo_terreno[ self.__matriz[y][x] ] 
   
 
 
@@ -87,13 +87,13 @@ class Mapa:
     # Metodo que mostra o mapa e suas dimensoes  
     def mostrar_mapa(self):
   
-        print( 'w: ', self.w_max + 1 )
-        print( 'h: ', self.h_max + 1 )
+        print( 'w: ', self.__w_max + 1 )
+        print( 'h: ', self.__h_max + 1 )
     
-        for linha in range(self.h_max + 1):
+        for linha in range(self.__h_max + 1):
             print( '\n' )
-            for coluna in range(self.w_max + 1):
-                print( self.matriz[linha][coluna] )
+            for coluna in range(self.__w_max + 1):
+                print( self.__matriz[linha][coluna] )
             
   
 # FIM DA DEFINICAO DA CLASSE MAPA

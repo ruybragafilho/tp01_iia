@@ -1,49 +1,142 @@
 from collections import deque
-
+from mapa import Mapa
 
 
 class Pathfinder:
 
+    status_posicao = { 'posicao_virgem': 0,
+                       'open_list': 1,
+                       'explorado': 2  }
 
-    def __init__( self ):
-        self.matriz_auxiliar = []
-        self.path_cost = 0
+
+    def __init__( self, mapa ):
+
+        self.mapa = mapa
+        self.matriz_status_visita = []
+        self.matriz_de_antecessores = []
+
         self.path = deque()        
+        self.path_cost = 0
+
+        self.open_list = deque()
 
 
     # Metodo que cria uma matriz auxiliar para identificar se uma 
     # posicao do mapa ja foi ou nao visitada
-    def criar_matriz_auxiliar( self, mapa ):
+    def criar_matriz_status_visita( self ):
 
-        numLinhas = mapa.get_num_linhas()
-        numColunas = mapa.get_num_colunas()        
+        numLinhas = self.mapa.get_num_linhas()
+        numColunas = self.mapa.get_num_colunas()        
         
         for i in range(numLinhas):
-            linha = numColunas * [0]
-            self.matriz_auxiliar.append( linha )
+            linha = numColunas * [  Pathfinder.status_posicao['posicao_virgem']  ]
+            self.matriz_status_visita.append( linha )
 
 
-    def visitar_posicao( self, x, y ):        
-        self.matriz_auxiliar[y][x] = 1
+    # Metodo que cria uma matriz auxiliar para armazenar a 
+    # posicao antecessora de cada posicao visitada no mapa 
+    def criar_matriz_de_antecessores( self ):
+
+        numLinhas = self.mapa.get_num_linhas()
+        numColunas = self.mapa.get_num_colunas()        
+        
+        for i in range(numLinhas):
+            linha = numColunas * [ (-1,-1) ]
+            self.matriz_de_antecessores.append( linha )     
 
 
-    def posicao_ja_foi_visitada( self, x, y ):
-        return self.matriz_auxiliar[y][x] == 1        
+    # Metodo que retorna True se aposicao nunca entrou na open_list 
+    # e nunca foi explorada
+    def posicao_nao_foi_visitada( self, x, y ):
+        return self.matriz_auxiliar[y][x] == Pathfinder.status_posicao['posicao_virgem']                    
+
+
+    # Metodo que insere a posicao (x,y) na open list e registra
+    # as coordenadas do seu antecessor na matriz de antecessor 
+    def inserir_posicao_na_open_list( self, x, y, x_antecessor, y_antecessor ):  
+
+        if( self.mapa.posicao_eh_valida( x, y ) and 
+            self.posicao_nao_foi_visitada( x, y ) ):     
+
+            self.matriz_status_visita[y][x] = Pathfinder.status_posicao['open_list']
+            self.open_list.append( (x,y) )
+
+            self.matriz_de_antecessores[y][x] = (y_antecessor, x_antecessor)
 
 
 
+    def get_path_cost( self ):
+        return self.path_cost
+
+
+    def get_path( self ):
+        return self.path
 
 
 
-    def bfs( self, mapa, posicao_inicial, posicao_final ):
-
-        self.criar_matriz_auxiliar( mapa )
-        fronteira = deque()
-
-        self.path_cost = 0
-        self.path.append( posicao_inicial )
+    # Metodo que implementa o algoritmo de busca BFS
+    def bfs( self, posicao_inicial, posicao_final ):
+        
+        # Testa se a posicao inicial eh o goal
         if( posicao_inicial == posicao_final ):
-            return
+            return True
+
+        # Se o goal nao for a posicao inicial, inicia a busca
+        self.criar_matriz_status_visita()
+        self.criar_matriz_de_antecessores()
+
+        (x,y) = posicao_inicial
+        self.inserir_posicao_na_open_list( x, y, -1 , -1 )
+                
+        while( True ):
+
+            # Verifica se a busca eh inviavel
+            if( len(self.open_list) == 0 ):
+                return False
+        
+            # Explora o primeiro elemento da open list
+            (x,y) = self.open_list.popleft()  
+            self.matriz_status_visita[y][x] = Pathfinder.status_posicao['explorado']
+
+            # verifica se a posicao de cima eh o goal. 
+            # Se for, encerra busca. Se nao for, a insere 
+            # na open list
+            (xs, ys) = self.mapa.sobe(x,y)            
+            if( (xs, ys) == posicao_final ):
+                return True
+            self.inserir_posicao_na_open_list( xs, ys, x, y )
+
+            # verifica se a posicao de baixo eh o goal. 
+            # Se for, encerra busca. Se nao for, a insere 
+            # na open list
+            (xi, yi) = self.mapa.desce(x,y)
+            if( (xi, yi) == posicao_final ):
+                return True            
+            self.inserir_posicao_na_open_list( xi, yi, x, y )            
+
+            # verifica se a posicao aa esquerda eh o goal. 
+            # Se for, encerra busca. Se nao for, a insere 
+            # na open list
+            (xe, ye) = self.mapa.esquerda(x,y)
+            if( (xe, ye) == posicao_final ):
+                return True                        
+            self.inserir_posicao_na_open_list( xe, ye, x, y )            
+
+            # verifica se a posicao aa direita eh o goal. 
+            # Se for, encerra busca. Se nao for, a insere 
+            # na open list
+            (xd, yd) = self.mapa.direita(x,y)
+            if( (xd, yd) == posicao_final ):
+                return True                                    
+            self.inserir_posicao_na_open_list( xd, yd, x, y )  
+
+
+            
+
+            
+
+            
+
 
         
 
