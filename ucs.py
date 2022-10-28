@@ -2,7 +2,7 @@ from collections import deque
 from mapa import Mapa
 
 
-class BFS:
+class UCS:
 
     status_posicao = { 'posicao_virgem': 0,
                        'open_list': 1,
@@ -29,7 +29,7 @@ class BFS:
         numColunas = self.mapa.get_num_colunas()        
         
         for i in range(numLinhas):
-            linha = numColunas * [  BFS.status_posicao['posicao_virgem']  ]
+            linha = numColunas * [  UCS.status_posicao['posicao_virgem']  ]
             self.matriz_status_visita.append( linha )
 
 
@@ -48,7 +48,7 @@ class BFS:
     # Metodo que retorna True se aposicao nunca entrou na open_list 
     # e nunca foi explorada
     def posicao_nao_foi_visitada( self, x, y ):
-        return self.matriz_status_visita[y][x] == BFS.status_posicao['posicao_virgem']                    
+        return self.matriz_status_visita[y][x] == UCS.status_posicao['posicao_virgem']                    
 
 
     # Metodo que insere a posicao (x,y) na open list e registra
@@ -58,7 +58,7 @@ class BFS:
         if( self.mapa.posicao_eh_valida( x, y ) and 
             self.posicao_nao_foi_visitada( x, y ) ):     
 
-            self.matriz_status_visita[y][x] = BFS.status_posicao['open_list']
+            self.matriz_status_visita[y][x] = UCS.status_posicao['open_list']
             self.open_list.append( (x,y) )
 
             self.matriz_de_antecessores[y][x] = (y_antecessor, x_antecessor)
@@ -116,7 +116,7 @@ class BFS:
         
             # Explora o primeiro elemento da open list
             (x,y) = self.open_list.popleft()  
-            self.matriz_status_visita[y][x] = BFS.status_posicao['explorado']
+            self.matriz_status_visita[y][x] = UCS.status_posicao['explorado']
 
             # verifica se a posicao de cima eh o goal. 
             # Se for, encerra busca. Se nao for, a insere 
