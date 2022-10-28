@@ -17,6 +17,7 @@
 
 import sys
 from mapa import Mapa
+from pathfinder import Pathfinder
 from bfs import BFS
 from ids import IDS
 from ucs import UCS
@@ -67,23 +68,23 @@ posicao_final = (xf, yf)
 if( identificador_metodo == 'BFS' ):
     print( '\nBFS\n' )    
     busca = BFS(mapa)
-    resultado = busca.pathfinder( posicao_inicial, posicao_final )
+    resultado = busca.search( posicao_inicial, posicao_final )
 elif( identificador_metodo == 'IDS' ):
     print( '\nIDS\n' )
     busca = IDS(mapa)
-    resultado = busca.pathfinder( posicao_inicial, posicao_final )    
+    resultado = busca.search( posicao_inicial, posicao_final )    
 elif( identificador_metodo == 'UCS' ):
     print( '\nUCS\n' )
     busca = UCS(mapa)
-    resultado = busca.pathfinder( posicao_inicial, posicao_final )        
+    resultado = busca.search( posicao_inicial, posicao_final )        
 elif( identificador_metodo == 'Greedy' ):
     print( '\nGreedy\n' )
     busca = Greedy(mapa)
-    resultado = busca.pathfinder( posicao_inicial, posicao_final )            
+    resultado = busca.search( posicao_inicial, posicao_final )            
 elif( identificador_metodo == 'Astar' ):
     print( '\nAstar\n' )
     busca = A_Star(mapa)
-    resultado = busca.pathfinder( posicao_inicial, posicao_final )            
+    resultado = busca.search( posicao_inicial, posicao_final )            
 else:
     print( '\nMetodo Invalido\n' )
     exit()
