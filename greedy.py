@@ -1,3 +1,7 @@
+# Módulo que implementa o algoritmo de busca gulosa - Greegy
+# Autor: Ruy Braga Filho
+
+
 from collections import deque
 from mapa import Mapa
 
@@ -45,7 +49,7 @@ class Greedy:
             self.matriz_de_antecessores.append( linha )     
 
 
-    # Metodo que retorna True se aposicao nunca entrou na open_list 
+    # Metodo que retorna True se a posicao nunca entrou na open_list 
     # e nunca foi explorada
     def posicao_nao_foi_visitada( self, x, y ):
         return self.matriz_status_visita[y][x] == Greedy.status_posicao['posicao_virgem']                    

@@ -19,7 +19,8 @@ class IDS:
         self.path_cost = 0
 
         self.open_list = deque()
-
+# Módulo que implementa o algoritmo de busca aprofundamento iterativo - IDS
+# Autor: Ruy Braga Filho
 
     # Metodo que cria uma matriz auxiliar para identificar se uma 
     # posicao do mapa ja foi ou nao visitada
@@ -45,7 +46,7 @@ class IDS:
             self.matriz_de_antecessores.append( linha )     
 
 
-    # Metodo que retorna True se aposicao nunca entrou na open_list 
+    # Metodo que retorna True se a posicao nunca entrou na open_list 
     # e nunca foi explorada
     def posicao_nao_foi_visitada( self, x, y ):
         return self.matriz_status_visita[y][x] == IDS.status_posicao['posicao_virgem']                    
