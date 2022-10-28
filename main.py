@@ -17,7 +17,7 @@
 
 import sys
 from mapa import Mapa
-from pathfinder import Pathfinder
+from bfs import BFS
 
 
 
@@ -56,12 +56,13 @@ mapa = Mapa(matriz, w, h)
 arquivo.close()
 linhas = None
 
-busca = Pathfinder(mapa)
+
 posicao_inicial = (xi, yi)
 posicao_final = (xf, yf)
 
 if( identificador_metodo == 'BFS' ):
-    resultado = busca.bfs( posicao_inicial, posicao_final )
+    busca = BFS(mapa)
+    resultado = busca.pathfinder( posicao_inicial, posicao_final )
 elif( identificador_metodo == 'IDS' ):
     print( '\nIDS\n' )
 elif( identificador_metodo == 'UCS' ):
@@ -78,7 +79,7 @@ else:
 
 if( resultado ):
     busca.get_path( posicao_inicial, posicao_final )
-    print( busca.path_cost, ' ', end='' )
+    print( busca.get_path_cost(), ' ', end='' )
     for i in busca.path:
         print( i, ' ', end='' )
 else:

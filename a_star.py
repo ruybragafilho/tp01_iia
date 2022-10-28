@@ -2,7 +2,7 @@ from collections import deque
 from mapa import Mapa
 
 
-class Pathfinder:
+class BFS:
 
     status_posicao = { 'posicao_virgem': 0,
                        'open_list': 1,
@@ -29,7 +29,7 @@ class Pathfinder:
         numColunas = self.mapa.get_num_colunas()        
         
         for i in range(numLinhas):
-            linha = numColunas * [  Pathfinder.status_posicao['posicao_virgem']  ]
+            linha = numColunas * [  BFS.status_posicao['posicao_virgem']  ]
             self.matriz_status_visita.append( linha )
 
 
@@ -48,7 +48,7 @@ class Pathfinder:
     # Metodo que retorna True se aposicao nunca entrou na open_list 
     # e nunca foi explorada
     def posicao_nao_foi_visitada( self, x, y ):
-        return self.matriz_status_visita[y][x] == Pathfinder.status_posicao['posicao_virgem']                    
+        return self.matriz_status_visita[y][x] == BFS.status_posicao['posicao_virgem']                    
 
 
     # Metodo que insere a posicao (x,y) na open list e registra
@@ -58,17 +58,19 @@ class Pathfinder:
         if( self.mapa.posicao_eh_valida( x, y ) and 
             self.posicao_nao_foi_visitada( x, y ) ):     
 
-            self.matriz_status_visita[y][x] = Pathfinder.status_posicao['open_list']
+            self.matriz_status_visita[y][x] = BFS.status_posicao['open_list']
             self.open_list.append( (x,y) )
 
             self.matriz_de_antecessores[y][x] = (y_antecessor, x_antecessor)
 
 
-
+    # Metodo que retorna o custo do caminho encontrado pelo bfs
     def get_path_cost( self ):
         return self.path_cost
 
 
+    # Metodo que utiliza a matriz de antecessores para retornar
+    # o caminho encontrado pelo bfs
     def get_path( self, posicao_inicial, posicao_final ):
 
         (x, y) = posicao_final
@@ -85,9 +87,8 @@ class Pathfinder:
         return self.path
 
 
-
     # Metodo que implementa o algoritmo de busca BFS
-    def bfs( self, posicao_inicial, posicao_final ):
+    def pathfinder( self, posicao_inicial, posicao_final ):
         
         # Testa se as posicoes sao validas
         (xi, yi) = posicao_inicial
@@ -115,7 +116,7 @@ class Pathfinder:
         
             # Explora o primeiro elemento da open list
             (x,y) = self.open_list.popleft()  
-            self.matriz_status_visita[y][x] = Pathfinder.status_posicao['explorado']
+            self.matriz_status_visita[y][x] = BFS.status_posicao['explorado']
 
             # verifica se a posicao de cima eh o goal. 
             # Se for, encerra busca. Se nao for, a insere 
@@ -152,32 +153,3 @@ class Pathfinder:
 
 
             
-
-            
-
-            
-
-
-        
-
-        #fronteira.append()
-        #fronteira.popleft()
-
-        
-
-    
-    def ids( self, mapa, posicao_inicial, posicao_final ):
-        pass
-
-
-    def ucs( self, mapa, posicao_inicial, posicao_final ):
-        pass
-
-
-    def greedy( self, mapa, posicao_inicial, posicao_final ):
-        pass
-
-
-    def a_star( self, mapa, posicao_inicial, posicao_final ):
-        pass
-    
