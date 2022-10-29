@@ -13,7 +13,20 @@ class UCS( Pathfinder ):
     def __init__( self, mapa ):
 
         super().__init__(mapa)
+        self.open_list = deque()        
 
+
+    # Metodo que insere a posicao (x,y) na open list e registra
+    # as coordenadas do seu antecessor na matriz de antecessor 
+    def inserir_posicao_na_open_list( self, x, y, x_antecessor, y_antecessor ):  
+
+        if( self.mapa.posicao_eh_valida( x, y ) and 
+            self.posicao_nao_foi_visitada( x, y ) ):     
+
+            self.matriz_status_visita[y][x] = Pathfinder.status_posicao['open_list']
+            self.open_list.append( (x,y) )
+
+            self.matriz_de_antecessores[y][x] = (y_antecessor, x_antecessor)
 
 
     # Metodo que implementa o algoritmo de busca BFS
