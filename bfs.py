@@ -47,8 +47,7 @@ class BFS( Pathfinder ):
         self.criar_matriz_status_visita()
         self.criar_matriz_de_antecessores()
 
-        (x,y) = posicao_inicial
-        self.inserir_posicao_na_open_list( x, y, -1 , -1 )
+        self.inserir_posicao_na_open_list( xi, yi, -1 , -1 )
                 
         while( True ):
 

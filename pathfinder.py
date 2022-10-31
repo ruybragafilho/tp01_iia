@@ -1,5 +1,5 @@
 # Módulo que implementa a super classe Pathfinder, que será 
-# pai das classes que implementam os metodos de busca
+# pai das classes que implementam metodos de busca
 # Autor: Ruy Braga Filho
 
 
@@ -70,13 +70,13 @@ class Pathfinder:
         return self.matriz_status_visita[y][x] == Pathfinder.status_posicao['expandida']
 
 
-    # Metodo que retorna o custo do caminho encontrado pelo bfs
+    # Metodo que retorna o custo do caminho encontrado pelo algoritmo de busca
     def get_path_cost( self ):
         return self.path_cost
 
 
     # Metodo que utiliza a matriz de antecessores para retornar
-    # o caminho encontrado pelo bfs
+    # o caminho encontrado pelo algoritmo de busca
     def get_path( self, posicao_inicial, posicao_final ):
 
         (x, y) = posicao_final
