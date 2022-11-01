@@ -26,7 +26,8 @@ class UCS( Pathfinder ):
     # as coordenadas do seu antecessor na matriz de antecessor 
     def inserir_posicao_na_open_list( self, x, y, custo_caminho_antecessor, x_antecessor, y_antecessor ):  
 
-        if( self.mapa.posicao_eh_valida( x, y ) ):     
+        if( self.mapa.posicao_eh_valida( x, y ) and 
+            not self.posicao_expandida( x, y ) ):     
 
             self.matriz_status_visita[y][x] = Pathfinder.status_posicao['open_list']
 
@@ -44,9 +45,9 @@ class UCS( Pathfinder ):
     # Metodo que retorna o custo do caminho encontrado pelo algoritmo de busca
     def get_path_cost( self ):
 
-        #(xi,yi) = self.posicao_inicial
+        (xi,yi) = self.posicao_inicial
         (xf,yf) = self.posicao_final
-        self.path_cost = self.matriz_menor_custo_caminho[yf][xf]# - self.matriz_custo_caminho[yi][xi]
+        self.path_cost = self.matriz_menor_custo_caminho[yf][xf] - self.mapa.custo(xi,yi)
         return self.path_cost
 
 

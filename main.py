@@ -100,6 +100,4 @@ else:
     print('Caminho nao encontrado')
 
 
-print( busca.matriz_menor_custo_caminho )    
-
 # Fim do programa
