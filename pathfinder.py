@@ -70,6 +70,14 @@ class Pathfinder:
         return self.matriz_status_visita[y][x] == Pathfinder.status_posicao['expandida']
 
 
+    # Metodo que implementa a heuristica da Manhattan para
+    # determinar a distancia aproximada entre dois pontos no mapa
+    def heuristica( self, posicao_inicial, posicao_final ):
+        (xi, yi) = posicao_inicial
+        (xf, yf) = posicao_final
+        return abs(xf-xi) + abs(yf-yi)
+
+
     # Metodo que retorna o custo do caminho encontrado pelo algoritmo de busca
     def get_path_cost( self ):
         return self.path_cost

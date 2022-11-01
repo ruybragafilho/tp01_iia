@@ -4,7 +4,6 @@
 
 import heapq
 from pathfinder import Pathfinder
-from mapa import Mapa
 
 
 class UCS( Pathfinder ):
@@ -24,7 +23,7 @@ class UCS( Pathfinder ):
 
     # Metodo que insere a posicao (x,y) na open list e registra
     # as coordenadas do seu antecessor na matriz de antecessor 
-    def inserir_posicao_na_open_list( self, x, y, custo_caminho_antecessor, x_antecessor, y_antecessor ):  
+    def inserir_posicao_na_open_list( self, x, y, x_antecessor, y_antecessor, custo_caminho_antecessor ):  
 
         if( self.mapa.posicao_eh_valida( x, y ) and 
             not self.posicao_expandida( x, y ) ):     
@@ -51,7 +50,7 @@ class UCS( Pathfinder ):
         return self.path_cost
 
 
-    # Metodo que implementa o algoritmo de busca BFS
+    # Metodo que implementa o algoritmo de busca UCS (Dijkstra)
     def search( self, posicao_inicial, posicao_final ):
 
         self.posicao_inicial = posicao_inicial
@@ -72,7 +71,7 @@ class UCS( Pathfinder ):
         self.criar_matriz_status_visita()
         self.criar_matriz_de_antecessores()
 
-        self.inserir_posicao_na_open_list( xi, yi, 0.0, -1 , -1 )
+        self.inserir_posicao_na_open_list( xi, yi, -1 , -1, 0.0 )
                 
         while( True ):
 
@@ -88,7 +87,7 @@ class UCS( Pathfinder ):
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xs, ys) = self.mapa.sobe(x,y)            
-            self.inserir_posicao_na_open_list( xs, ys, custo_caminho_atual, x, y )
+            self.inserir_posicao_na_open_list( xs, ys, x, y, custo_caminho_atual )
             if( (xs, ys) == posicao_final ):
                 return True            
 
@@ -96,7 +95,7 @@ class UCS( Pathfinder ):
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xi, yi) = self.mapa.desce(x,y)
-            self.inserir_posicao_na_open_list( xi, yi, custo_caminho_atual, x, y )            
+            self.inserir_posicao_na_open_list( xi, yi, x, y, custo_caminho_atual )            
             if( (xi, yi) == posicao_final ):
                 return True                       
 
@@ -104,7 +103,7 @@ class UCS( Pathfinder ):
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xe, ye) = self.mapa.esquerda(x,y)
-            self.inserir_posicao_na_open_list( xe, ye, custo_caminho_atual, x, y )  
+            self.inserir_posicao_na_open_list( xe, ye, x, y, custo_caminho_atual )  
             if( (xe, ye) == posicao_final ):
                 return True                        
             
@@ -112,7 +111,7 @@ class UCS( Pathfinder ):
             # Se for, encerra busca. Se nao for, a insere 
             # na open list
             (xd, yd) = self.mapa.direita(x,y)
-            self.inserir_posicao_na_open_list( xd, yd, custo_caminho_atual, x, y )  
+            self.inserir_posicao_na_open_list( xd, yd, x, y, custo_caminho_atual )  
             if( (xd, yd) == posicao_final ):
                 return True                     
             

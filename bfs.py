@@ -91,6 +91,3 @@ class BFS( Pathfinder ):
             if( (xd, yd) == posicao_final ):
                 return True                                    
             
-
-
-            
