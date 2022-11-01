@@ -71,9 +71,16 @@ class UCS( Pathfinder ):
         self.criar_matriz_status_visita()
         self.criar_matriz_de_antecessores()
 
+        print( "\nUCS - STARTED\n" )
+        i = 0
+
         self.inserir_posicao_na_open_list( xi, yi, -1 , -1, 0.0 )
                 
         while( True ):
+
+            if( i >= 10 ):
+                return False
+            i += 1                
 
             # Verifica se a busca eh inviavel
             if( len(self.open_list) == 0 ):
@@ -86,6 +93,8 @@ class UCS( Pathfinder ):
             self.matriz_status_visita[y][x] = Pathfinder.status_posicao['expandida']
             if( (x, y) == posicao_final ):
                 return True            
+
+            print( "\nPosicao atual: ", (x,y) )                
 
             # Insere o vizinho de cima na open list
             (xs, ys) = self.mapa.sobe(x,y)            
