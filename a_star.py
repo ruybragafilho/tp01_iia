@@ -80,38 +80,27 @@ class A_Star( Pathfinder ):
             if( len(self.open_list) == 0 ):
                 return False
         
-            # Explora o primeiro elemento da open list
+            # Expande o primeiro elemento da open list e verifica se ele 
+            # eh o goal. Se for, encerra busca. Se nao for, insere os
+            # vizinhos na open list
             (fn, ( custo_caminho_atual, (x,y) )) = heapq.heappop( self.open_list )
             self.matriz_status_visita[y][x] = Pathfinder.status_posicao['expandida']
-
-            # verifica se a posicao de cima eh o goal. 
-            # Se for, encerra busca. Se nao for, a insere 
-            # na open list
-            (xs, ys) = self.mapa.sobe(x,y)            
-            self.inserir_posicao_na_open_list( xs, ys, x, y, custo_caminho_atual )
-            if( (xs, ys) == posicao_final ):
+            if( (x, y) == posicao_final ):
                 return True            
 
-            # verifica se a posicao de baixo eh o goal. 
-            # Se for, encerra busca. Se nao for, a insere 
-            # na open list
+            # Insere o vizinho de cima na open list
+            (xs, ys) = self.mapa.sobe(x,y)            
+            self.inserir_posicao_na_open_list( xs, ys, x, y, custo_caminho_atual )
+
+            # Insere o vizinho de baixo na open list
             (xi, yi) = self.mapa.desce(x,y)
             self.inserir_posicao_na_open_list( xi, yi, x, y, custo_caminho_atual )            
-            if( (xi, yi) == posicao_final ):
-                return True                       
 
-            # verifica se a posicao aa esquerda eh o goal. 
-            # Se for, encerra busca. Se nao for, a insere 
-            # na open list
+            # Insere o vizinho da esquerda na open list
             (xe, ye) = self.mapa.esquerda(x,y)
             self.inserir_posicao_na_open_list( xe, ye, x, y, custo_caminho_atual )  
-            if( (xe, ye) == posicao_final ):
-                return True                        
             
-            # verifica se a posicao aa direita eh o goal. 
-            # Se for, encerra busca. Se nao for, a insere 
-            # na open list
+            # Insere o vizinho da direita na open list
             (xd, yd) = self.mapa.direita(x,y)
             self.inserir_posicao_na_open_list( xd, yd, x, y, custo_caminho_atual )  
-            if( (xd, yd) == posicao_final ):
-                return True      
+

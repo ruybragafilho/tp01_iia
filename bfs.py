@@ -55,7 +55,7 @@ class BFS( Pathfinder ):
             if( len(self.open_list) == 0 ):
                 return False
         
-            # Explora o primeiro elemento da open list
+            # Expande o primeiro elemento da open list
             (x,y) = self.open_list.popleft()  
             self.matriz_status_visita[y][x] = Pathfinder.status_posicao['expandida']
 
@@ -90,4 +90,7 @@ class BFS( Pathfinder ):
             self.inserir_posicao_na_open_list( xd, yd, x, y )  
             if( (xd, yd) == posicao_final ):
                 return True                                    
+            
+
+
             
