@@ -89,7 +89,7 @@ class Pathfinder:
 
         (x, y) = posicao_final
         self.path.appendleft( (x,y) )
-        self.path_cost += self.mapa.custo(x, y)
+        self.path_cost = self.mapa.custo(x, y)
 
         while( True ):
             (y, x) = self.matriz_de_antecessores[y][x]

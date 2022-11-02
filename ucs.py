@@ -83,25 +83,27 @@ class UCS( Pathfinder ):
             # eh o goal. Se for, encerra busca. Se nao for, insere os
             # vizinhos na open list
             ( custo_caminho_atual, (x,y) ) = heapq.heappop( self.open_list )
-            self.matriz_status_visita[y][x] = Pathfinder.status_posicao['expandida']
-            if( (x, y) == posicao_final ):
-                return True            
+            if( self.matriz_status_visita[y][x] != Pathfinder.status_posicao['expandida'] ):
 
-            # Insere o vizinho de cima na open list
-            (xs, ys) = self.mapa.sobe(x,y)            
-            self.inserir_posicao_na_open_list( xs, ys, x, y, custo_caminho_atual )
-
-            # Insere o vizinho de baixo na open list
-            (xi, yi) = self.mapa.desce(x,y)
-            self.inserir_posicao_na_open_list( xi, yi, x, y, custo_caminho_atual )            
-
-            # Insere o vizinho da esquerda na open list
-            (xe, ye) = self.mapa.esquerda(x,y)
-            self.inserir_posicao_na_open_list( xe, ye, x, y, custo_caminho_atual )  
-            
-            # Insere o vizinho da direita na open list
-            (xd, yd) = self.mapa.direita(x,y)
-            self.inserir_posicao_na_open_list( xd, yd, x, y, custo_caminho_atual )  
+                self.matriz_status_visita[y][x] = Pathfinder.status_posicao['expandida']
+                if( (x, y) == posicao_final ):
+                    return True            
+    
+                # Insere o vizinho de cima na open list
+                (xs, ys) = self.mapa.sobe(x,y)            
+                self.inserir_posicao_na_open_list( xs, ys, x, y, custo_caminho_atual )
+    
+                # Insere o vizinho de baixo na open list
+                (xi, yi) = self.mapa.desce(x,y)
+                self.inserir_posicao_na_open_list( xi, yi, x, y, custo_caminho_atual )            
+    
+                # Insere o vizinho da esquerda na open list
+                (xe, ye) = self.mapa.esquerda(x,y)
+                self.inserir_posicao_na_open_list( xe, ye, x, y, custo_caminho_atual )  
+                
+                # Insere o vizinho da direita na open list
+                (xd, yd) = self.mapa.direita(x,y)
+                self.inserir_posicao_na_open_list( xd, yd, x, y, custo_caminho_atual )  
 
             
 

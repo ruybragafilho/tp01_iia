@@ -22,6 +22,9 @@ class IDS( Pathfinder ):
 
         self.open_list = deque() 
 
+        self.path = deque()        
+        self.path_cost = 0
+
         numLinhas = self.mapa.get_num_linhas()
         numColunas = self.mapa.get_num_colunas()        
         
@@ -64,8 +67,7 @@ class IDS( Pathfinder ):
         self.criar_matriz_de_antecessores()
 
         profundidade = 0  
-        (x,y) = posicao_inicial
-        self.inserir_posicao_na_open_list( x, y, -1 , -1, profundidade )
+        self.inserir_posicao_na_open_list( xi, yi, -1 , -1, profundidade )
                 
         while( True ):
 

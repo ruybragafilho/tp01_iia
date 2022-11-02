@@ -66,23 +66,18 @@ posicao_inicial = (xi, yi)
 posicao_final = (xf, yf)
 
 if( identificador_metodo == 'BFS' ):
-    print( '\nBFS\n' )    
     busca = BFS(mapa)
     resultado = busca.search( posicao_inicial, posicao_final )
 elif( identificador_metodo == 'IDS' ):
-    print( '\nIDS\n' )
     busca = IDS(mapa)
     resultado = busca.search( posicao_inicial, posicao_final )    
 elif( identificador_metodo == 'UCS' ):
-    print( '\nUCS\n' )
     busca = UCS(mapa)
     resultado = busca.search( posicao_inicial, posicao_final )        
 elif( identificador_metodo == 'Greedy' ):
-    print( '\nGreedy\n' )
     busca = Greedy(mapa)
     resultado = busca.search( posicao_inicial, posicao_final )            
 elif( identificador_metodo == 'Astar' ):
-    print( '\nAstar\n' )
     busca = A_Star(mapa)
     resultado = busca.search( posicao_inicial, posicao_final )            
 else:
@@ -93,9 +88,9 @@ else:
 
 if( resultado ):
     busca.get_path( posicao_inicial, posicao_final )
-    print( busca.get_path_cost(), ' ', end='' )
+    print( busca.get_path_cost(), '', end='' )
     for i in busca.path:
-        print( i, ' ', end='' )
+        print( i, '', end='' )
 else:
     print('Caminho nao encontrado')
 
